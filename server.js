@@ -1,14 +1,15 @@
-const http = require("http");
+const express = require('express')
+const app = express()
+const port = 3000
 
-const host = "localhost";
-const port = process.env.PORT || 5000;
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
 
-const requestListener = function (req, res) {
-  res.setHeader("Content-Type", "application/json").writeHead(200).end("ok");
-};
+app.get('/health', (req, res) => {
+  res.status(200).send({ message: 'ok' })
+})
 
-const server = http.createServer(requestListener);
-
-server.listen(port, host, () => {
-  console.log(`Server is running on http://${host}:${port}`);
-});
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
